@@ -59,7 +59,7 @@ public class AppServer {
                 System.out.println("Reading Data.....");
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String request = reader.readLine();
-                reader.close();
+                //reader.close();
                 //separate command and options
                 String[] reqBody = request.split(COMMAND_SEPARATOR);
                 String command = reqBody[0];
@@ -86,6 +86,11 @@ public class AppServer {
                         String[] optionsArry = options.split(OPTION_SEPARATOR);
                         //get filename
                         File file = new File(optionsArry[0]);
+                        //if file doesn't exists send error response
+                        if (!file.exists()){
+                            sendResponse("error-File/Directory Not Found!!");
+                            return;
+                        }
                         //if encoding method is provided use that
                         if (optionsArry.length > 1) setENCODING_METHOD(optionsArry[1]);
                         //encode the file
