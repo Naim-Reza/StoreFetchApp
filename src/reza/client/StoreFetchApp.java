@@ -93,6 +93,30 @@ public class StoreFetchApp {
                     System.out.println(msg);
                     write(msg);
                     break;
+
+                case "ls":
+                    //get directory
+                    String dir = args[1];
+                    //choose to use the sever address
+                    if(args.length > 2){
+                        //if ip is provided use that otherwise use the default ip
+                        String[] serverAddress = args[2].split(PORT_SEPARATOR);
+                        setIP(serverAddress[0]);
+                        //if port is provided use that otherwise use the default port
+                        if (serverAddress.length > 1) setPORT(Integer.parseInt(serverAddress[1]));
+                    }
+
+                    //connect to the server
+                    if (!connect()) {
+                        utility.displayHelp();
+                        return;
+                    }
+                    //send request
+                    String listRequest = command + COMMAND_SEPARATOR + dir;
+                    write(listRequest);
+                    //read response
+                    getResponse();
+                    break;
                 default:
                     utility.displayHelp("Invalid command...!!!");
 

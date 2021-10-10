@@ -3,6 +3,7 @@ package reza.server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class AppServer {
     int PORT = 3000;
@@ -99,6 +100,24 @@ public class AppServer {
                         sendResponse( "success-" + encodedFile);
                         //get decoding status
                         getResponse();
+                        break;
+
+                    case "ls":
+                        File dir = new File(options);
+                        //check if the directory exists
+                        if (!dir.exists()){
+                            sendResponse("Directory doesn't exists!!!");
+                            return;
+                        }
+                        //get the list of files and directories
+                        String[] list = dir.list();
+                        if (list.length < 1){
+                            sendResponse("Empty Directory...");
+                            return;
+                        }
+
+                        //send directory list
+                        sendResponse(Arrays.toString(list));
                         break;
                     default:
                         System.out.println("Invalid command provided...");
