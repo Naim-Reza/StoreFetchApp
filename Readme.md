@@ -13,11 +13,16 @@ java reza.server.AppServer
 java reza.client.StoreFetchApp [option] [source] [server-address : optional] [encoding-method : optional]
 ```
 
+* Client side command for getting file and directory list of the specified path relative to the server.
+
+```shell
+java reza.client.StoreFetchApp ls [directory-name] [server-address : optional]
+```
 
 ### Parameters
 
 
-__option__: Available options: [store | fetch]
+__option__: Available options: [store | fetch | ls]
 
 __source__ : The file that needs to be sent or fetch. File must be provided with extension.
 
@@ -56,4 +61,18 @@ java reza.client.StoreFetchApp fetch cat.jpg 127.0.0.1
 or
 ```shell
 java reza.client.StoreFetchApp fetch cat.jpg 127.0.0.1:3000
+```
+
+* To fetch the directory list from the server use the following command
+
+```shell
+java reza.client.StoreFetchApp ls ./directory-name
+```
+or
+```shell
+java reza.client.StoreFetchApp ls ./directory-name 127.0.0.1
+```
+or
+```shell
+java reza.client.StoreFetchApp ls ./directory-name 127.0.0.1:3000
 ```
